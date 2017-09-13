@@ -34,5 +34,16 @@ class UserTimelineTVC: TWTRTimelineViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    @IBAction func logout(_ sender: Any) {
+        
+        let sessionStore = Twitter.sharedInstance().sessionStore
+        
+        if let currentSession = sessionStore.session() {
+            sessionStore.logOutUserID(currentSession.userID)
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+    }
 
 }

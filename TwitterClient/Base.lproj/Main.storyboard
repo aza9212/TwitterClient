@@ -41,7 +41,13 @@
                             <outlet property="delegate" destination="hhO-ch-95d" id="VPP-xi-Mg6"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Лента" id="msw-gK-aHb"/>
+                    <navigationItem key="navigationItem" title="Лента" id="msw-gK-aHb">
+                        <barButtonItem key="leftBarButtonItem" title="Выйти" style="done" id="EaU-Y4-mTi">
+                            <connections>
+                                <action selector="logout:" destination="hhO-ch-95d" id="pMI-ri-g3K"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ARa-mx-QtW" userLabel="First Responder" sceneMemberID="firstResponder"/>
