@@ -22,13 +22,30 @@ class UserTimelineTVC: TWTRTimelineViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.fetchLoggedUser()
         self.refreshUserTimeline()
+    }
+    
+    func fetchLoggedUser(){
+        let sessionStore = Twitter.sharedInstance().sessionStore
+        
+        if let currentSession = sessionStore.session() {
+            TWTRAPIClient().loadUser(withID: currentSession.userID, completion: { (fetchedUser, error) in
+                if let user = fetchedUser {
+                    self.navigationItem.title = "@\(user.screenName) Лента"
+                }
+            })
+        }
     }
     
     func refreshUserTimeline(){
         self.tableView.refreshControl?.endRefreshing()
         
-        self.dataSource = TWTRUserTimelineDataSource.init(screenName: nil, userID: Twitter.sharedInstance().sessionStore.session()?.userID, apiClient: TWTRAPIClient(), maxTweetsPerRequest: 50, includeReplies: true, includeRetweets: true)
+        let sessionStore = Twitter.sharedInstance().sessionStore
+        
+        if let currentSession = sessionStore.session() {
+            self.dataSource = TWTRUserTimelineDataSource.init(screenName: nil, userID: currentSession.userID, apiClient: TWTRAPIClient(), maxTweetsPerRequest: 50, includeReplies: true, includeRetweets: true)
+        }
     }
     
     override func didReceiveMemoryWarning() {
