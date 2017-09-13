@@ -11,10 +11,14 @@ import TwitterKit
 
 class UserTimelineTVC: TWTRTimelineViewController {
     
+    var refreshTimer = Timer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.refreshControl = UIRefreshControl()
         self.tableView.refreshControl?.addTarget(self, action: #selector(refreshUserTimeline), for: UIControlEvents.valueChanged)
+        
+        self.refreshTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(refreshUserTimeline), userInfo: nil, repeats: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
