@@ -60,7 +60,15 @@ class UserTimelineTVC: TWTRTimelineViewController {
             sessionStore.logOutUserID(currentSession.userID)
             self.navigationController?.popViewController(animated: true)
         }
+    }
+    
+    @IBAction func composeTweet(_ sender: Any) {
         
+        if SLComposeViewController.isAvailable(forServiceType: SLServiceTypeTwitter) {
+            if let composer = SLComposeViewController(forServiceType: SLServiceTypeTwitter){
+                self.present(composer, animated: true, completion: nil)
+            }
+        }
     }
 
 }
