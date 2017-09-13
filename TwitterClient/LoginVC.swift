@@ -14,10 +14,22 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let sessionStore = Twitter.sharedInstance().sessionStore
+        
+        if sessionStore.session() != nil {
+            let listTweetsTVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UserTimelineTVC") as! UserTimelineTVC
+            self.navigationController?.pushViewController(listTweetsTVC, animated: false)
+        }
+        
+        
+        
         let logInButton = TWTRLogInButton(logInCompletion: { session, error in
             
             if (session != nil) {
                 print("signed in as \(session!.userName)");
+                
+                let listTweetsTVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UserTimelineTVC") as! UserTimelineTVC
+                self.navigationController?.pushViewController(listTweetsTVC, animated: false)
                 
             } else {
                 print("error: \(error?.localizedDescription)");
