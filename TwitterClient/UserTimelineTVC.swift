@@ -66,6 +66,18 @@ class UserTimelineTVC: TWTRTimelineViewController {
         
         if SLComposeViewController.isAvailable(forServiceType: SLServiceTypeTwitter) {
             if let composer = SLComposeViewController(forServiceType: SLServiceTypeTwitter){
+                composer.completionHandler = {
+                    (result:SLComposeViewControllerResult) in
+                    
+                    switch result {
+                    case .done:
+                        self.perform(#selector(self.refreshUserTimeline), with: nil, afterDelay: 3)
+                        break
+                    default:
+                        break
+                    }
+                    
+                }
                 self.present(composer, animated: true, completion: nil)
             }
         }
