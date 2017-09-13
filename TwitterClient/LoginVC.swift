@@ -32,7 +32,13 @@ class LoginVC: UIViewController {
                 self.navigationController?.pushViewController(listTweetsTVC, animated: false)
                 
             } else {
-                print("error: \(error?.localizedDescription)");
+                if error != nil {
+                    let alertController = UIAlertController(title: "Ошибка", message: error?.localizedDescription, preferredStyle: .alert)
+                    let okButton = UIAlertAction(title: "OK", style: .cancel)
+                    alertController.addAction(okButton)
+                 
+                    self.present(alertController, animated: true, completion: nil)
+                }
             }
         })
         logInButton.center = self.view.center
